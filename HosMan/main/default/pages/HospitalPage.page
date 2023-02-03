@@ -1,0 +1,43 @@
+<apex:page Controller="HospitalMangaementClass" >
+    <apex:form >
+    
+         <apex:outputLabel > Patient Name :   </apex:outputLabel>
+          <apex:inputText value="{!searchKey}" label="Input"  />
+         
+        <apex:commandButton value="Search records" action="{!search}"/>
+        <apex:commandButton value="Clear records" action="{!clear}"/>
+       
+         
+           
+        <apex:pageBlock title="Search Result" id="details" >
+            <apex:pageBlockTable value="{!acc}" var="ac"  >
+              
+                <apex:column value="{!ac.Name}"/>
+                 <apex:column >
+                   <apex:commandLink reRender="PatientDetail" >
+                   {!ac.Name1__c}
+                   <apex:param name="oid" value="{!ac.id}"  />
+                     </apex:commandLink>
+                </apex:column>
+               <apex:column value="{!ac.Sex__c}"/>
+                 <apex:column value="{!ac.Date_Time__c}"/>
+                 <apex:column value="{!ac.Email_ID__c}"/>
+                 <apex:column value="{!ac.Mobile_No__c}"  />
+                <apex:column >
+                   <apex:commandButton value="Follow Up" action="{!GotoFlow}" reRender="details" />
+                    
+              </apex:column>   
+                
+              </apex:pageBlockTable>
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!previous}" value="<<Previous" reRender="details" rendered="{!hasPrevious}"   />
+                 <apex:commandButton action="{!next}" value="Next>>"  reRender="details" rendered="{!hasNext}" />
+            </apex:pageBlockButtons>
+            </apex:pageBlock>
+         <apex:pageBlock id="PatientDetail">
+             <apex:detail subject="{!$CurrentPage.parameters.oid}" />
+         </apex:pageBlock>
+        </apex:form> 
+   
+</apex:page>
