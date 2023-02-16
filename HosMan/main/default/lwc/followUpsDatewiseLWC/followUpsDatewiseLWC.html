@@ -1,0 +1,40 @@
+<template>
+    <lightning-card title="Follow Ups">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col">
+                <lightning-input type="Date" label="Search FollowUps" onchange={handleSearchTermChange}></lightning-input>
+            </div>
+            <div class="slds-col">
+                <lightning-button label="Search" onclick={handleSearchClick}></lightning-button>
+            </div>
+        </div>
+        <div class="slds-m-top_medium">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                <thead>
+                    <tr>
+                        <th scope="col">Patient Id</th>
+                        <th scope="col">Patient Name</th>
+                        <th scope="col">Sex </th>
+                        <th scope="col">Email ID</th>
+                        <th scope="col">Consultant </th>
+                        <th scope="col">Follow Done</th>
+                        <th scope="col">Mobile Number </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={FollowUps} for:item="follow">
+                        <tr key={FollowUps.Id}>
+                            <td>{follow.Patient_ID__c}</td>
+                            <td>{follow.Name}</td>
+                            <td>{follow.Sex__c}</td>
+                            <td>{follow.Email_ID__c}</td>
+                            <td>{follow.Consultant__r.Name}</td>
+                            <td>{follow.FollowUp__c}</td>
+                            <td>{follow.Mobile_No__c}</td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </lightning-card>
+</template>
